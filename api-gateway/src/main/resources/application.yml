@@ -1,0 +1,31 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: API-GATEWAY-MICROSERVICE
+  cloud:
+    gateway:
+      routes:
+        - id: CUSTOMER-MICROSERVICE
+          uri: lb://CUSTOMER-MICROSERVICE
+          predicates:
+            - Path=/customer/**
+        - id: SELLER-MICROSERVICE
+          uri: lb://SELLER-MICROSERVICE
+          predicates:
+            - Path=/seller/**
+        - id: ADMIN-MICROSERVICE
+          uri: lb://ADMIN-MICROSERVICE
+          predicates:
+            - Path=/admin/**
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
